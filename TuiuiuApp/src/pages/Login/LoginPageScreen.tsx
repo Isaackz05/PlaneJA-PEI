@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -64,7 +58,9 @@ export default function LoginScreen() {
         </View>
 
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Entrar</Text>
+          <Text style={styles.buttonText} onPress={() => navigation.navigate("Home")}>
+            Entrar
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

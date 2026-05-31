@@ -1,44 +1,45 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import {View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../navigation";
+
+type NavigationProps = NativeStackNavigationProp<
+  RootStackParamList,
+  "Signup"
+>;
 
 export default function SignupScreen() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigation = useNavigation<NavigationProps>();
 
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text style={styles.title}>Cadastre-se</Text>
+        <Text style={styles.title}>Cadastro</Text>
 
         <Text style={styles.subtitle}>
           Já possui uma conta?{" "}
-          <Text style={styles.link}>Entrar</Text>
+          <Text
+            style={styles.link}
+            onPress={() => navigation.navigate("Login")}
+          >
+            Login
+          </Text>
         </Text>
 
-        <Text style={styles.label}>Nome Completo</Text>
-        <TextInput style={styles.input} placeholder="Seu nome" />
+        <Text style={styles.label}>Nome</Text>
+        <TextInput style={styles.input} />
 
         <Text style={styles.label}>Email</Text>
-        <TextInput style={styles.input} placeholder="email@email.com" />
+        <TextInput style={styles.input} />
 
-        <Text style={styles.label}>Data de Nascimento</Text>
-        <TextInput style={styles.input} placeholder="00/00/0000" />
-
-        <Text style={styles.label}>Número de Telefone</Text>
-        <TextInput style={styles.input} placeholder="(65) 99999-9999" />
-
-        <Text style={styles.label}>Definir Senha</Text>
+        <Text style={styles.label}>Senha</Text>
         <View style={styles.passwordContainer}>
           <TextInput
             style={styles.passwordInput}
             secureTextEntry={!passwordVisible}
-            placeholder="******"
           />
           <TouchableOpacity
             onPress={() => setPasswordVisible(!passwordVisible)}
