@@ -36,7 +36,6 @@ Como primeiro grande passo e prova de conceito (PoC), o ecossistema do app foi m
 A escolha da Chapada dos Guimarães como cenário inicial de validação foi estratégica:
 1.  **Complexidade Logística Ideal:** O destino mistura atrativos de livre acesso com trilhas que exigem obrigatoriamente o acompanhamento de guias cadastrados (ICMBio), sendo o laboratório perfeito para testar o fluxo de agendamento duplo (Atrativo + Profissional).
 2.  **Economia Local Pulsante:** Apoio direto à comunidade de guias autônomos e comércios locais de micro e pequeno porte através da centralização da vitrine turística.
-3.  **Turismo de Proximidade:** Proximidade com a capital (Cuiabá), permitindo mapear o fluxo tanto do turista de fora quanto do morador local que faz o famoso "bate e volta".
 
 ---
 
