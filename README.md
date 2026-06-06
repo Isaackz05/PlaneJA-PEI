@@ -41,6 +41,6 @@ A escolha da Chapada dos Guimarães como cenário inicial de validação foi est
 
 ## 🛠️ Tecnologias Cogitadas / Utilizadas
 
-*   **Frontend:** 
-*   **Backend:** 
-*   **Banco de Dados:** 
+*   **Frontend:** React Native, Typescript
+*   **Backend:** Node.js, Typescript
+*   **Banco de Dados:** MySQL
