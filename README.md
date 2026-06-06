@@ -41,8 +41,8 @@ A escolha da Chapada dos Guimarães como cenário inicial de validação foi est
 
 ## 🛠️ Tecnologias Cogitadas / Utilizadas
 
-*   **Frontend:** [Ex: React Native / Flutter / Next.js]
-*   **Backend:** [Ex: Node.js / Python Fast API / Go]
-*   **Banco de Dados:** [Ex: PostgreSQL (com PostGIS para geolocalização)]
+*   **Frontend:** React Native
+*   **Backend:** Node.js
+*   **Banco de Dados:** 
 
 Alunos: Cauã Vilela, Igor César, Italo Cubas, João Elias e José Isaack
