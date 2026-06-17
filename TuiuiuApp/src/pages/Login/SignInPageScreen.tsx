@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import {View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -11,8 +18,63 @@ type NavigationProps = NativeStackNavigationProp<
 >;
 
 export default function SignupScreen() {
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const navigation = useNavigation<NavigationProps>();
+
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const [passwordVisible, setPasswordVisible] =
+    useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSignup = async () => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "http://192.168.0.14:3000/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nome,
+            email,
+            senha,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        Alert.alert(
+          "Erro",
+          data.erro || "Falha ao cadastrar"
+        );
+        return;
+      }
+
+      Alert.alert(
+        "Sucesso",
+        "Usuário criado com sucesso!"
+      );
+
+      navigation.navigate("Login");
+    } catch (error) {
+      console.log(error);
+
+      Alert.alert(
+        "Erro",
+        "Não foi possível conectar ao servidor."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -23,37 +85,68 @@ export default function SignupScreen() {
           Já possui uma conta?{" "}
           <Text
             style={styles.link}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() =>
+              navigation.navigate("Login")
+            }
           >
             Login
           </Text>
         </Text>
 
         <Text style={styles.label}>Nome</Text>
-        <TextInput style={styles.input} />
+
+        <TextInput
+          style={styles.input}
+          value={nome}
+          onChangeText={setNome}
+        />
 
         <Text style={styles.label}>Email</Text>
-        <TextInput style={styles.input} />
+
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+        />
 
         <Text style={styles.label}>Senha</Text>
+
         <View style={styles.passwordContainer}>
           <TextInput
             style={styles.passwordInput}
+            value={senha}
+            onChangeText={setSenha}
             secureTextEntry={!passwordVisible}
           />
+
           <TouchableOpacity
-            onPress={() => setPasswordVisible(!passwordVisible)}
+            onPress={() =>
+              setPasswordVisible(!passwordVisible)
+            }
           >
             <Ionicons
-              name={passwordVisible ? "eye" : "eye-off"}
+              name={
+                passwordVisible
+                  ? "eye"
+                  : "eye-off"
+              }
               size={20}
               color="#888"
             />
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Cadastrar</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSignup}
+          disabled={loading}
+        >
+          <Text style={styles.buttonText}>
+            {loading
+              ? "Cadastrando..."
+              : "Cadastrar"}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

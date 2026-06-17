@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -11,8 +18,52 @@ type NavigationProps = NativeStackNavigationProp<
 >;
 
 export default function LoginScreen() {
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const navigation = useNavigation<NavigationProps>();
+
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "http://192.168.0.14:3000/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            senha,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        Alert.alert("Erro", data.erro || "Falha no login");
+        return;
+      }
+
+      console.log("TOKEN:", data.token);
+
+      navigation.navigate("Home");
+    } catch (error) {
+      console.log(error);
+
+      Alert.alert(
+        "Erro",
+        "Não foi possível conectar ao servidor."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -30,20 +81,37 @@ export default function LoginScreen() {
         </Text>
 
         <Text style={styles.label}>Email</Text>
-        <TextInput style={styles.input} placeholder="email@email.com" />
+
+        <TextInput
+          style={styles.input}
+          placeholder="email@email.com"
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+        />
 
         <Text style={styles.label}>Senha</Text>
+
         <View style={styles.passwordContainer}>
           <TextInput
             style={styles.passwordInput}
-            secureTextEntry={!passwordVisible}
             placeholder="******"
+            value={senha}
+            onChangeText={setSenha}
+            secureTextEntry={!passwordVisible}
           />
+
           <TouchableOpacity
-            onPress={() => setPasswordVisible(!passwordVisible)}
+            onPress={() =>
+              setPasswordVisible(!passwordVisible)
+            }
           >
             <Ionicons
-              name={passwordVisible ? "eye" : "eye-off"}
+              name={
+                passwordVisible
+                  ? "eye"
+                  : "eye-off"
+              }
               size={20}
               color="#888"
             />
@@ -52,14 +120,24 @@ export default function LoginScreen() {
 
         <View style={styles.row}>
           <Text>☐ Lembrar-me</Text>
-          <Text style={styles.link} onPress={() => navigation.navigate("ForgotPassword")}>
+
+          <Text
+            style={styles.link}
+            onPress={() =>
+              navigation.navigate("ForgotPassword")
+            }
+          >
             Esqueceu a senha?
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText} onPress={() => navigation.navigate("Home")}>
-            Entrar
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleLogin}
+          disabled={loading}
+        >
+          <Text style={styles.buttonText}>
+            {loading ? "Entrando..." : "Entrar"}
           </Text>
         </TouchableOpacity>
       </View>
