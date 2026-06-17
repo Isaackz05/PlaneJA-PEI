@@ -86,8 +86,7 @@ export default function HomeScreen() {
         title="Véu de Noiva"
         image="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
         onPress={() => navigation.navigate("Destination", {
-            title: "Véu de Noiva",
-            image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+            destinationId: "veu-de-noiva",
         })}
       />
 
@@ -95,8 +94,7 @@ export default function HomeScreen() {
         title="Cidade de Pedra"
         image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
         onPress={() => navigation.navigate("Destination", {
-            title: "Cidade de Pedra",
-            image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+            destinationId: "cidade-de-pedra",
         })}
       />
 
@@ -104,8 +102,7 @@ export default function HomeScreen() {
         title="Vale do Rio Claro"
         image="https://images.unsplash.com/photo-1441974231531-c6227db76b6e"
         onPress={() => navigation.navigate("Destination", {
-            title: "Vale do Rio Claro",
-            image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
+            destinationId: "vale-rio-claro",
         })}
       />
     </ScrollView>

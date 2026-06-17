@@ -9,8 +9,8 @@ import SignupScreen from "../pages/Login/SignInPageScreen";
 import ForgotPasswordScreen from "../pages/Login/ForgotPasswordScreen";
 import ResetPasswordScreen from "../pages/Login/ResetPasswordScreen";
 import HomeScreen from "../pages/Home/HomeScreen";
-import DestinationScreen from "../pages/Hotel/HotelDetailsScreen";
-import HotelDetailsScreen from "../pages/Hotel/HotelDetailsScreen";
+import DestinationScreen from "../pages/Destination/DestinationScreen";
+/* import HotelDetailsScreen from "../pages/Hotel/HotelDetailsScreen"; */
 
 export type RootStackParamList = {
   Login: undefined;
@@ -19,10 +19,9 @@ export type RootStackParamList = {
   ResetPassword: undefined;
   Home: undefined;
   Destination: {
-    title: string;
-    image: string;
+    destinationId: string;
   };
-  HotelDetails: undefined;
+  /* HotelDetails: undefined; */
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -37,7 +36,7 @@ export default function Routes() {
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
         <Stack.Screen name="Home" component={BottomTabs} />
         <Stack.Screen name="Destination" component={DestinationScreen} />
-        <Stack.Screen name="HotelDetails" component={HotelDetailsScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

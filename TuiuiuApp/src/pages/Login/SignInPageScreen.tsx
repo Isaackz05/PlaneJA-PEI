@@ -29,7 +29,7 @@ export default function SignupScreen() {
 
   const [loading, setLoading] = useState(false);
 
-  const handleSignup = async () => {
+  /* const handleSignup = async () => {
     try {
       setLoading(true);
 
@@ -74,7 +74,7 @@ export default function SignupScreen() {
     } finally {
       setLoading(false);
     }
-  };
+  }; */
 
   return (
     <View style={styles.container}>
@@ -139,14 +139,9 @@ export default function SignupScreen() {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={handleSignup}
-          disabled={loading}
+          onPress={() => navigation.navigate("Login")}
         >
-          <Text style={styles.buttonText}>
-            {loading
-              ? "Cadastrando..."
-              : "Cadastrar"}
-          </Text>
+          
         </TouchableOpacity>
       </View>
     </View>
